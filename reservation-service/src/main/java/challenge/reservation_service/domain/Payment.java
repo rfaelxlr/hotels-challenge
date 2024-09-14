@@ -14,13 +14,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 
 @Entity
@@ -28,19 +32,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment {
 
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "primary_sequence",
+            name = "payment_sequence",
+            sequenceName = "payment_sequence",
             allocationSize = 1,
             initialValue = 10000
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
+            generator = "payment_sequence"
     )
     private Long id;
 

@@ -8,7 +8,7 @@ spring:
       maximum-pool-size: 10
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
     properties:
       hibernate:
@@ -20,6 +20,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   docker:
     compose:
+      enabled: false
       lifecycle-management: start-only
 error:
   handling:
@@ -29,4 +30,9 @@ error:
     log-levels:
       5xx: ERROR
 springdoc:
-  pathsToMatch: /, /api/**
+  pathsToMatch: /, /v1/**
+flyway:
+  url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:reservation_service}
+  user: postgres
+  password: postgres
+  enabled: true

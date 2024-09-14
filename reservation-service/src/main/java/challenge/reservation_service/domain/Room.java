@@ -30,14 +30,14 @@ public class Room {
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "primary_sequence",
+            name = "room_sequence",
+            sequenceName = "room_sequence",
             allocationSize = 1,
             initialValue = 10000
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
+            generator = "room_sequence"
     )
     private Long id;
 
@@ -52,6 +52,9 @@ public class Room {
 
     @Column(nullable = false, unique = true)
     private UUID externalId;
+
+    @Column(nullable = false)
+    private Long hotelId;
 
     @OneToMany(mappedBy = "room")
     private Set<Reservation> reservations;
