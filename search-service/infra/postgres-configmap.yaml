@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: search-postgres
+data:
+  host: "search-postgres"
+  name: "search_service"

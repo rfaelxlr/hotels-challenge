@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-reservation
+  template:
+    metadata:
+      labels:
+        app: postgres-reservation
+    spec:
+      containers:
+        - name: postgres-reservation
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+            - name: POSTGRES_DB
+              value: "reservation_service"
+          ports:
+            - containerPort: 5432

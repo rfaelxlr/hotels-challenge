@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reservation-postgres
+data:
+  host: "reservation-postgres"
+  name: "reservation_service"

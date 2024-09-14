@@ -1,0 +1,67 @@
+CREATE SEQUENCE  IF NOT EXISTS address_sequence START WITH 10000 INCREMENT BY 1;
+
+CREATE TABLE addresses (
+  id BIGINT NOT NULL,
+   street VARCHAR(255) NOT NULL,
+   city VARCHAR(255) NOT NULL,
+   state VARCHAR(2) NOT NULL,
+   zipcode VARCHAR(8) NOT NULL,
+   country VARCHAR(255) NOT NULL,
+   latitude DOUBLE PRECISION,
+   longitude DOUBLE PRECISION,
+   date_created TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   last_updated TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   CONSTRAINT pk_addresses PRIMARY KEY (id)
+);
+
+CREATE SEQUENCE  IF NOT EXISTS hotel_sequence START WITH 10000 INCREMENT BY 1;
+
+CREATE TABLE hotels (
+  id BIGINT NOT NULL,
+   name VARCHAR(255) NOT NULL,
+   rating DOUBLE PRECISION,
+   external_id UUID NOT NULL,
+   address_id BIGINT NOT NULL,
+   date_created TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   last_updated TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   CONSTRAINT pk_hotels PRIMARY KEY (id)
+);
+
+ALTER TABLE hotels ADD CONSTRAINT uc_hotels_address UNIQUE (address_id);
+
+ALTER TABLE hotels ADD CONSTRAINT uc_hotels_external UNIQUE (external_id);
+
+ALTER TABLE hotels ADD CONSTRAINT FK_HOTELS_ON_ADDRESS FOREIGN KEY (address_id) REFERENCES addresses (id);
+
+CREATE SEQUENCE  IF NOT EXISTS room_sequence START WITH 10000 INCREMENT BY 1;
+
+CREATE TABLE rooms (
+  id BIGINT NOT NULL,
+   quantity_available INTEGER NOT NULL,
+   capacity INTEGER NOT NULL,
+   price DECIMAL(10, 2) NOT NULL,
+   external_id UUID NOT NULL,
+   hotel_id BIGINT NOT NULL,
+   date_created TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   last_updated TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   CONSTRAINT pk_rooms PRIMARY KEY (id)
+);
+
+ALTER TABLE rooms ADD CONSTRAINT uc_rooms_external UNIQUE (external_id);
+
+ALTER TABLE rooms ADD CONSTRAINT FK_ROOMS_ON_HOTEL FOREIGN KEY (hotel_id) REFERENCES hotels (id);
+
+CREATE SEQUENCE  IF NOT EXISTS user_reviews_sequence START WITH 10000 INCREMENT BY 1;
+
+CREATE TABLE user_reviews (
+  id BIGINT NOT NULL,
+   id_external_user UUID NOT NULL,
+   rating DOUBLE PRECISION NOT NULL,
+   review VARCHAR(255) NOT NULL,
+   hotel_id BIGINT,
+   date_created TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   last_updated TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   CONSTRAINT pk_userreviews PRIMARY KEY (id)
+);
+
+ALTER TABLE user_reviews ADD CONSTRAINT FK_USERREVIEWS_ON_HOTEL FOREIGN KEY (hotel_id) REFERENCES hotels (id);

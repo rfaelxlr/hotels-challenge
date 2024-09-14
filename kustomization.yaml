@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - notification-service/infra/postgres-configmap.yaml
+  - notification-service/infra/postgres-service.yaml
+  - notification-service/infra/postgres-deployment.yaml
+  - notification-service/infra/deployment.yaml
+  - reservation-service/infra/postgres-configmap.yaml
+  - reservation-service/infra/postgres-service.yaml
+  - reservation-service/infra/postgres-deployment.yaml
+  - reservation-service/infra/deployment.yaml
+  - search-service/infra/postgres-configmap.yaml
+  - search-service/infra/postgres-service.yaml
+  - search-service/infra/postgres-deployment.yaml
+  - search-service/infra/deployment.yaml
+  - ingress.yaml

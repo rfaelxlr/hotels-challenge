@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-search
+  template:
+    metadata:
+      labels:
+        app: postgres-search
+    spec:
+      containers:
+        - name: postgres-search
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+            - name: POSTGRES_DB
+              value: "search_service"
+          ports:
+            - containerPort: 5432
