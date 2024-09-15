@@ -1,5 +1,6 @@
 package challenge.reservation_service.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -57,6 +58,7 @@ public class Room {
     private Long hotelId;
 
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private Set<Reservation> reservations;
 
     @CreatedDate

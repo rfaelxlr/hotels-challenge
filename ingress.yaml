@@ -3,26 +3,26 @@ kind: Ingress
 metadata:
   name: hotel-reservation-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - http:
         paths:
-          - path: /search-service
+          - path: /search-service(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: search-service
                 port:
                   number: 80
-          - path: /reservation-service
+          - path: /reservation-service(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: reservation-service
                 port:
                   number: 80
-          - path: /notification-service
+          - path: /notification-service(/|$)(.*)
             pathType: Prefix
             backend:
               service:

@@ -36,3 +36,14 @@ flyway:
   user: postgres
   password: postgres
   enabled: true
+rabbitmq:
+  host: ${RABBITMQ_HOST:localhost}
+  port: ${RABBITMQ_PORT:5672}
+  username: ${RABBITMQ_USERNAME:guest}
+  password: ${RABBITMQ_PASSWORD:guest}
+  exchange: reservation_exchange
+  queue: reservation_queue
+  routing-key: reservation_routing_key
+  dlq:
+    routing-key: reservation_dlq_routing_key
+    queue: reservation_dlq_queue

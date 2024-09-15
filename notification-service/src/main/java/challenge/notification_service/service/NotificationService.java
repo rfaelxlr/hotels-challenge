@@ -1,70 +1,40 @@
 package challenge.notification_service.service;
 
 import challenge.notification_service.domain.Notification;
-import challenge.notification_service.model.NotificationDTO;
+import challenge.notification_service.model.NotificationType;
+import challenge.notification_service.model.ReservationEventDTO;
 import challenge.notification_service.repos.NotificationRepository;
-import challenge.notification_service.util.NotFoundException;
-import java.util.List;
-import org.springframework.data.domain.Sort;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 
 @Service
+@RequiredArgsConstructor
 public class NotificationService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(NotificationService.class);
 
     private final NotificationRepository notificationRepository;
 
-    public NotificationService(final NotificationRepository notificationRepository) {
-        this.notificationRepository = notificationRepository;
+
+    public void notify(ReservationEventDTO reservationEventDTO) {
+        LOGGER.info("Send to email: status: {} , checkinDate: {} , checkoutDate: {} , userName: {}",
+                reservationEventDTO.getStatus(),
+                reservationEventDTO.getReservation().getCheckInDate(),
+                reservationEventDTO.getReservation().getCheckOutDate().toString(),
+                reservationEventDTO.getReservation().getUser().getName());
+
     }
 
-    public List<NotificationDTO> findAll() {
-        final List<Notification> notifications = notificationRepository.findAll(Sort.by("id"));
-        return notifications.stream()
-                .map(notification -> mapToDTO(notification, new NotificationDTO()))
-                .toList();
+    public void save(ReservationEventDTO reservation) {
+        notificationRepository.save(Notification.builder()
+                .reservationEventId(reservation.getExternalId())
+                .type(NotificationType.EMAIL)
+                .isProcessed(true)
+                .processedDate(LocalDateTime.now())
+                .build());
     }
-
-    public NotificationDTO get(final Long id) {
-        return notificationRepository.findById(id)
-                .map(notification -> mapToDTO(notification, new NotificationDTO()))
-                .orElseThrow(NotFoundException::new);
-    }
-
-    public Long create(final NotificationDTO notificationDTO) {
-        final Notification notification = new Notification();
-        mapToEntity(notificationDTO, notification);
-        return notificationRepository.save(notification).getId();
-    }
-
-    public void update(final Long id, final NotificationDTO notificationDTO) {
-        final Notification notification = notificationRepository.findById(id)
-                .orElseThrow(NotFoundException::new);
-        mapToEntity(notificationDTO, notification);
-        notificationRepository.save(notification);
-    }
-
-    public void delete(final Long id) {
-        notificationRepository.deleteById(id);
-    }
-
-    private NotificationDTO mapToDTO(final Notification notification,
-            final NotificationDTO notificationDTO) {
-        notificationDTO.setId(notification.getId());
-        notificationDTO.setIsProcessed(notification.getIsProcessed());
-        notificationDTO.setProcessedDate(notification.getProcessedDate());
-        notificationDTO.setReservationEventId(notification.getReservationEventId());
-        notificationDTO.setType(notification.getType());
-        return notificationDTO;
-    }
-
-    private Notification mapToEntity(final NotificationDTO notificationDTO,
-            final Notification notification) {
-        notification.setIsProcessed(notificationDTO.getIsProcessed());
-        notification.setProcessedDate(notificationDTO.getProcessedDate());
-        notification.setReservationEventId(notificationDTO.getReservationEventId());
-        notification.setType(notificationDTO.getType());
-        return notification;
-    }
-
 }
