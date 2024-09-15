@@ -17,7 +17,7 @@ public class ListenerService {
 
     private final NotificationService notificationService;
 
-    @RabbitListener(queues = "${rabbitmq.queue}")
+    @RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void receiveMessage(String message) throws IOException {
         LOGGER.info(String.format("Received : %s", message));
 

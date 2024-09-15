@@ -18,6 +18,12 @@ spring:
         id:
           new_generator_mappings: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    queue: reservation_queue
   docker:
     compose:
       enabled: false
@@ -39,9 +45,3 @@ flyway:
   user: postgres
   password: postgres
   enabled: true
-rabbitmq:
-  host: ${RABBITMQ_HOST:localhost}
-  port: ${RABBITMQ_PORT:5672}
-  username: ${RABBITMQ_USERNAME:guest}
-  password: ${RABBITMQ_PASSWORD:guest}
-  queue: reservation_queue

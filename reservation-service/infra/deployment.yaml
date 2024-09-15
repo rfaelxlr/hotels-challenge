@@ -29,6 +29,14 @@ spec:
               value: "postgres"
             - name: DB_NAME
               value: "reservation_service"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
 ---
 apiVersion: v1
 kind: Service

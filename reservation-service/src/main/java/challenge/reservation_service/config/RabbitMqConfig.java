@@ -39,7 +39,7 @@ public class RabbitMqConfig {
     private String rabbitHost;
 
     @Value("${rabbitmq.port}")
-    private int rabbitPort;
+    private String rabbitPort;
 
     @Value("${rabbitmq.username}")
     private String rabbitUsername;
@@ -79,7 +79,7 @@ public class RabbitMqConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitHost);
-        connectionFactory.setPort(rabbitPort);
+        connectionFactory.setPort(Integer.parseInt(rabbitPort));
         connectionFactory.setUsername(rabbitUsername);
         connectionFactory.setPassword(rabbitPassword);
         return connectionFactory;
