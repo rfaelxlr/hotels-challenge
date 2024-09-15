@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 # Se não tiver, você precisará gerar ou obter esses IDs de alguma forma
 hotel_ids = list(range(10000, 10500))  # Exemplo: 500 hotéis já existentes (IDs de 10000 a 10499)
 
+
 # Função para gerar um registro de quarto
 def generate_room(id, hotel_id):
     quantity_available = random.randint(1, 20)
@@ -14,8 +15,9 @@ def generate_room(id, hotel_id):
     external_id = uuid.uuid4()
     date_created = datetime.now() - timedelta(days=random.randint(0, 365))
     last_updated = date_created + timedelta(days=random.randint(0, 30))
-    
+
     return (id, quantity_available, capacity, price, external_id, hotel_id, date_created, last_updated)
+
 
 # Gerar quartos para cada hotel (pelo menos 2 por hotel)
 rooms = []
@@ -29,8 +31,10 @@ for hotel_id in hotel_ids:
 
 # Gerar o SQL
 sql = "INSERT INTO rooms (id, quantity_available, capacity, price, external_id, hotel_id, date_created, last_updated) VALUES\n"
-sql += ",\n".join([f"({id}, {quantity_available}, {capacity}, {price:.2f}, '{external_id}', {hotel_id}, '{date_created}', '{last_updated}')" 
-                   for id, quantity_available, capacity, price, external_id, hotel_id, date_created, last_updated in rooms])
+sql += ",\n".join([
+                      f"({id}, {quantity_available}, {capacity}, {price:.2f}, '{external_id}', {hotel_id}, '{date_created}', '{last_updated}')"
+                      for id, quantity_available, capacity, price, external_id, hotel_id, date_created, last_updated in
+                      rooms])
 sql += ";"
 
 # Imprimir o SQL

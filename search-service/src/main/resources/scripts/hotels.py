@@ -14,6 +14,7 @@ hotel_names = [
     "Emerald Bay Hotel", "Ruby Hills Inn", "Sapphire Shores Resort", "Diamond Peak Lodge", "Oasis Palms Hotel"
 ]
 
+
 # Função para gerar um registro de hotel
 def generate_hotel(id):
     name = f"{random.choice(hotel_names)} {random.choice(['', 'Express', 'Plus', 'Deluxe', 'Premium'])}"
@@ -23,15 +24,16 @@ def generate_hotel(id):
     address_ids.remove(address_id)  # Garante que cada endereço é usado apenas uma vez
     date_created = datetime.now() - timedelta(days=random.randint(0, 365))
     last_updated = date_created + timedelta(days=random.randint(0, 30))
-    
+
     return (id, name, rating, external_id, address_id, date_created, last_updated)
+
 
 # Gerar 500 hotéis
 hotels = [generate_hotel(10000 + i) for i in range(500)]
 
 # Gerar o SQL
 sql = "INSERT INTO hotels (id, name, rating, external_id, address_id, date_created, last_updated) VALUES\n"
-sql += ",\n".join([f"({id}, '{name}', {rating}, '{external_id}', {address_id}, '{date_created}', '{last_updated}')" 
+sql += ",\n".join([f"({id}, '{name}', {rating}, '{external_id}', {address_id}, '{date_created}', '{last_updated}')"
                    for id, name, rating, external_id, address_id, date_created, last_updated in hotels])
 sql += ";"
 

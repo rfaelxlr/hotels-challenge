@@ -1,10 +1,8 @@
 package challenge.search_service.rest;
 
-import challenge.search_service.domain.Hotel;
 import challenge.search_service.model.HotelDTO;
 import challenge.search_service.service.HotelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

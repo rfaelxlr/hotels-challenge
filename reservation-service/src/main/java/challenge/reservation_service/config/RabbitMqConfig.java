@@ -3,7 +3,6 @@ package challenge.reservation_service.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -47,21 +46,6 @@ public class RabbitMqConfig {
 
     @Value("${rabbitmq.password}")
     private String rabbitPassword;
-
-    @PostConstruct
-    public void init() {
-        System.out.println("RabbitMQ Configuration:");
-        System.out.println("Host: " + rabbitHost);
-        System.out.println("Port: " + rabbitPort);
-        System.out.println("Username: " + rabbitUsername);
-
-        System.out.println("Exchange: " + exchange);
-        System.out.println("Queue: " + queue);
-        System.out.println("Routing key: " + routingKey);
-
-        System.out.println("DLQ Queue: " + dlqQueue);
-        System.out.println("DLQ Routing key: " + dlqRoutingKey);
-    }
 
     @Bean
     public Queue queue() {

@@ -1,17 +1,10 @@
 package challenge.search_service.repos;
 
 import challenge.search_service.domain.Hotel;
-
-import java.util.List;
-import java.util.UUID;
-
-import challenge.search_service.model.HotelDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
@@ -25,8 +18,8 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "AND (:roomCapacity IS NULL OR r.capacity >= :roomCapacity)",
             nativeQuery = true)
     Page<Hotel> search(String state,
-                          String city,
-                          Integer numbersOfRooms,
-                          Integer roomCapacity,
-                          Pageable pageRequest);
+                       String city,
+                       Integer numbersOfRooms,
+                       Integer roomCapacity,
+                       Pageable pageRequest);
 }

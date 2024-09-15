@@ -1,6 +1,7 @@
 # NotificationService
 
-This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
+This app was created with Bootify.io - tips on working with the
+code [can be found here](https://bootify.io/next-steps/).
 
 ## Development
 
@@ -39,6 +40,6 @@ mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=challenge/notif
 
 ## Further readings
 
-* [Maven docs](https://maven.apache.org/guides/index.html)  
-* [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
+* [Maven docs](https://maven.apache.org/guides/index.html)
+* [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 * [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/jpa.html)

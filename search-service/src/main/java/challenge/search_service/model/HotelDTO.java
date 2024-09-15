@@ -1,15 +1,12 @@
 package challenge.search_service.model;
 
 import challenge.search_service.domain.Hotel;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import lombok.Getter;
-import lombok.Setter;
 
 
 @Getter

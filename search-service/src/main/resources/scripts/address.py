@@ -9,6 +9,7 @@ cities = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Salvador", "Fortale
           "Recife", "Porto Alegre", "Manaus", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís"]
 states = ["SP", "RJ", "MG", "BA", "CE", "DF", "PR", "PE", "RS", "AM", "PA", "GO", "SP", "SP", "MA"]
 
+
 def generate_address():
     street = f"{random.choice(streets)} {random.choice(street_names)}, {random.randint(1, 2000)}"
     city_index = random.randint(0, len(cities) - 1)
@@ -19,6 +20,7 @@ def generate_address():
     longitude = random.uniform(-73.99, -34.79)  # Longitude range for Brazil
     date = datetime.now() - timedelta(days=random.randint(0, 365))
     return (street, city, state, zipcode, latitude, longitude, date.strftime("%Y-%m-%d %H:%M:%S"))
+
 
 # Gerar SQL
 sql = "INSERT INTO public.addresses (id, street, city, state, zipcode, country, latitude, longitude, date_created, last_updated) VALUES\n"

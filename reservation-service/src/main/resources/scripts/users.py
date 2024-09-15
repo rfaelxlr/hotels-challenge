@@ -8,6 +8,7 @@ names = ["João", "Maria", "Pedro", "Ana", "Lucas", "Carla", "Felipe", "Mariana"
 domains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "uol.com.br"]
 ddds = ["11", "21", "31", "41", "51", "61", "71", "81", "91", "98"]
 
+
 def generate_user():
     name = random.choice(names)
     email = f"{name.lower()}.{random.randint(1, 9999)}@{random.choice(domains)}"
@@ -16,6 +17,7 @@ def generate_user():
     external_id = uuid.uuid4()
     date = datetime.now() - timedelta(days=random.randint(0, 365))
     return (name, email, ddd, phone_number, external_id, date.strftime("%Y-%m-%d %H:%M:%S"))
+
 
 # Gerar SQL
 sql = "INSERT INTO public.users (id, name, email, ddd, phone_number, external_id, date_created, last_updated) VALUES\n"

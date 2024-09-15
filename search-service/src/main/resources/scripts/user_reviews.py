@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 # Lista de IDs de hotéis válidos
 hotel_ids = list(range(10000, 10500))  # IDs de 10000 a 10499
 
+
 # Função para gerar um registro de review
 def generate_review(id, hotel_id):
     id_external_user = uuid.uuid4()
@@ -12,8 +13,9 @@ def generate_review(id, hotel_id):
     review_text = f"Review for hotel {hotel_id}."
     date_created = datetime.now() - timedelta(days=random.randint(1, 365))  # Data aleatória nos últimos 365 dias
     last_updated = datetime.now()
-    
+
     return (id, id_external_user, rating, review_text, hotel_id, date_created, last_updated)
+
 
 # Gerar reviews para cada hotel (5 a 10 reviews por hotel)
 reviews = []
@@ -28,7 +30,7 @@ for hotel_id in hotel_ids:
 # Gerar o SQL
 sql = "INSERT INTO user_reviews (id, id_external_user, rating, review, hotel_id, date_created, last_updated) VALUES\n"
 sql += ",\n".join([
-    f"({id}, '{id_external_user}', {rating}, '{review_text}', {hotel_id}, '{date_created}', '{last_updated}')" 
+    f"({id}, '{id_external_user}', {rating}, '{review_text}', {hotel_id}, '{date_created}', '{last_updated}')"
     for id, id_external_user, rating, review_text, hotel_id, date_created, last_updated in reviews
 ])
 sql += ";"
